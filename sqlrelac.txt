@@ -1,0 +1,47 @@
+create database relacionamentos;
+use relacionamentos;
+create table departamento (
+cod int auto_increment primary key, 
+nome varchar(30));
+
+create table funcionario (
+cod int primary key auto_increment, 
+nome varchar(50),
+email varchar(50),
+salario numeric(5,2),
+codigDepto int);
+
+insert into departamento values
+(1, "Jogador"),
+(2, "Tecnico"),
+(3, "Massagista"),
+(4, "Aux. Técnico"),
+(5, "Gandula");
+
+insert into funcionario values 
+(1, "Romero Lukau", "romero21@etecguaianaises.com", 1000,1),
+(2, "Dante", "dante21@etecguaianaises.com", 1000,2),
+(3, "Jorginho", "Jorginho21@etecguaianaises.com", 900,3),
+(4, "Klopp", "Klopp21@etecguaianaises.com", 1000,2),
+(5, "Eusébio", "eusebio55@etecguaianaises.com", 1200,4),
+(6, "Shenlon", "Shenlon21@etecguaianaises.com", 1550,5),
+(7, "Romário", "romario21@etecguaianaises.com", 1000,1),
+(8, "Jurgen", "romero21@etecguaianaises.com", 1000,1),
+(9, "Roberto Carlos", "romero21@etecguaianaises.com", 1000,1),
+(10, "Firmino", "romero21@etecguaianaises.com", 1000,1),
+(11, "Arrom", "romero21@etecguaianaises.com", 1000,1);
+
+ALTER TABLE funcionario 
+ADD CONSTRAINT `fk_depto`
+FOREIGN KEY (`codigDepto`)
+REFERENCES departamento(`cod`);
+
+
+select 
+	f.cod, f.nome,
+    f.email, f.salario, 
+    d.nome
+from funcionario f 
+LEFT JOIN departamento d 
+on (d.cod = f.codigDepto)
+order by f.salario desc
